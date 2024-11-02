@@ -13,8 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
-import java.util.Date
+
 
 
 class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChangedListener {
