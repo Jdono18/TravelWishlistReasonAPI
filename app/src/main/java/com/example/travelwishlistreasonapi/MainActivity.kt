@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.travelwishlistreasonapi.BuildConfig
 
 
 
@@ -39,9 +40,9 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         newPlaceEditText = findViewById(R.id.new_place_name)
         reasonEditText = findViewById(R.id.reason_field)
 
-        val places = placesViewModel.getPlaces() // list of place objects
+//        val places = placesViewModel.getPlaces() // list of place objects
 
-        placesRecyclerAdapter = PlaceRecyclerAdapter(places, this)
+        placesRecyclerAdapter = PlaceRecyclerAdapter(listOf(), this)
         placeListRecyclerView.layoutManager = LinearLayoutManager(this)
         placeListRecyclerView.adapter = placesRecyclerAdapter
 
@@ -50,6 +51,11 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
 
         addNewPlaceButton.setOnClickListener {
             addNewPlace()
+        }
+
+        placesViewModel.allPlaces.observe(this) { places ->  // placesList is now in mutablelivedata type so this adapter observes this
+            placesRecyclerAdapter.places = places
+            placesRecyclerAdapter.notifyDataSetChanged()
         }
 
     }
@@ -62,13 +68,13 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         } else {
             val newPlace = Place(name, reason)
             val positionAdded = placesViewModel.addNewPlace(newPlace)
-            if (positionAdded == -1) {
-                Toast.makeText(this,"You already added that place", Toast.LENGTH_SHORT).show()
-            } else {
-                placesRecyclerAdapter.notifyItemInserted(positionAdded)
+//            if (positionAdded == -1) {
+//                Toast.makeText(this,"You already added that place", Toast.LENGTH_SHORT).show()
+//            } else {
+//                placesRecyclerAdapter.notifyItemInserted(positionAdded)
                 clearForm()
                 hideKeyboard()
-            }
+//            }
         }
     }
 
@@ -102,7 +108,7 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
 //    }
 
     override fun onListItemDeleted(position: Int) {
-        val deletedPlace = placesViewModel.deletePlace(position)
+//        val deletedPlace = placesViewModel.deletePlace(position)
         placesRecyclerAdapter.notifyItemRemoved(position)
 
 //        Snackbar.make(findViewById(R.id.wishlist_container), getString(R.string.place_deleted, deletedPlace.name), Snackbar.LENGTH_LONG)

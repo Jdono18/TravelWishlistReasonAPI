@@ -13,7 +13,7 @@ interface OnListItemClickedListener {
     fun onStarredStatusChanged(place: Place, isStarred: Boolean)
 }
 
-class PlaceRecyclerAdapter(private val places: List<Place>,
+class PlaceRecyclerAdapter(var places: List<Place>,
                            private val onListItemClickedListener: OnListItemClickedListener):
     RecyclerView.Adapter<PlaceRecyclerAdapter.ViewHolder>(){
 

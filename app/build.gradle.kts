@@ -5,7 +5,11 @@ plugins {
 
 android {
     namespace = "com.example.travelwishlistreasonapi"
-    compileSdk = 34
+    compileSdk = 35
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId = "com.example.travelwishlistreasonapi"
@@ -15,6 +19,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "PLACES_TOKEN", PLACES_TOKEN)
+
     }
 
     buildTypes {
