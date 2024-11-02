@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TravelWishlistReasonAPI" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorSecondary">@android:color/holo_orange_dark</item>
+        <item name="colorSecondaryVariant">@android:color/holo_orange_light</item>
+    </style>
+
+    <style name="Theme.TravelWishlistReasonAPI" parent="Base.Theme.TravelWishlistReasonAPI" />
+</resources>
