@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.travelwishlistreasonapi.BuildConfig
-
+import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChangedListener {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
     private lateinit var reasonEditText: EditText
     private lateinit var addNewPlaceButton: Button
     private lateinit var placeListRecyclerView: RecyclerView
+    private lateinit var wishlistContainer: View
 
     private lateinit var placesRecyclerAdapter: PlaceRecyclerAdapter
 
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         addNewPlaceButton = findViewById(R.id.add_new_place_button)
         newPlaceEditText = findViewById(R.id.new_place_name)
         reasonEditText = findViewById(R.id.reason_field)
+        wishlistContainer = findViewById(R.id.wishlist_container)
 
 //        val places = placesViewModel.getPlaces() // list of place objects
 
@@ -58,6 +61,11 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
             placesRecyclerAdapter.notifyDataSetChanged()
         }
 
+        placesViewModel.userMessage.observe(this) { message ->
+            if (message != null) {
+                Snackbar.make(wishlistContainer, message, Snackbar.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun addNewPlace() {
@@ -102,14 +110,11 @@ class MainActivity : AppCompatActivity(), OnListItemClickedListener, OnDataChang
         placesViewModel.updatePlace(place)
     }
 
-//    override fun onListItemMoved(from: Int, to: Int) {
-//        placesViewModel.movePlace(from, to)
-//        placesRecyclerAdapter.notifyItemMoved(from, to)
-//    }
-
     override fun onListItemDeleted(position: Int) {
-//        val deletedPlace = placesViewModel.deletePlace(position)
-        placesRecyclerAdapter.notifyItemRemoved(position)
+        val place = placesRecyclerAdapter.places[position]
+        placesViewModel.deletePlace(place)
+
+//        placesRecyclerAdapter.notifyItemRemoved(position)
 
 //        Snackbar.make(findViewById(R.id.wishlist_container), getString(R.string.place_deleted, deletedPlace.name), Snackbar.LENGTH_LONG)
 //            .setActionTextColor(resources.getColor(R.color.red))

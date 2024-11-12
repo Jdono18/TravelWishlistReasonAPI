@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "PLACES_TOKEN", PLACES_TOKEN)
+        buildConfigField("String", "PLACES_TOKEN", "\"PLACES_TOKEN\"")
 
     }
 
